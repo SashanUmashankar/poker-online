@@ -316,7 +316,7 @@
                 const response = await fetch('/api/game_state');
                 gameState = await response.json();
                 
-                // Find player index
+                // find player index
                 const playerName = document.getElementById('playerName').value;
                 if (playerIndex === -1 && playerName) {
                     playerIndex = gameState.players.findIndex(p => p.name === playerName);
@@ -329,12 +329,12 @@
         }
         
         function renderGame() {
-            // Update game info
+            // update game info
             document.getElementById('gameStage').textContent = gameState.game_stage;
             document.getElementById('pot').textContent = gameState.pot;
             document.getElementById('currentBet').textContent = gameState.current_bet;
             
-            // Update community cards
+            // update community cards
             const communityCardsDiv = document.getElementById('communityCards');
             communityCardsDiv.innerHTML = '';
             gameState.community_cards.forEach(card => {
@@ -344,7 +344,7 @@
                 communityCardsDiv.appendChild(cardDiv);
             });
             
-            // Update players
+            // update players
             const playersDiv = document.getElementById('players');
             playersDiv.innerHTML = '';
             gameState.players.forEach((player, index) => {
@@ -372,7 +372,7 @@
                 playersDiv.appendChild(playerDiv);
             });
             
-            // Update action buttons
+            // update action buttons
             const actionButtons = document.getElementById('actionButtons');
             const isPlayerTurn = gameState.current_player === playerIndex && 
                                 gameState.game_stage !== 'waiting' && 
@@ -381,7 +381,7 @@
             
             actionButtons.style.display = isPlayerTurn ? 'block' : 'none';
             
-            // Update start button
+            // update start button
             const startBtn = document.getElementById('startBtn');
             startBtn.style.display = gameState.game_stage === 'waiting' ? 'block' : 'none';
         }
@@ -413,7 +413,7 @@
             }, 3000);
         }
         
-        // Auto-update game state every 2 seconds
+        // auto-update game state 
         setInterval(() => {
             if (document.getElementById('gameSection').style.display !== 'none') {
                 updateGameState();
