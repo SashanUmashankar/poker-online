@@ -26,7 +26,7 @@ full-stack Texas Hold'em poker game built with Python Flask backend and HTML/CSS
    cd poker-game
    ```
 
-2. **Create virtual environment:**
+2. **Create virtual environment (run using command prompt):**
    ```bash
    python -m venv poker_env
    
