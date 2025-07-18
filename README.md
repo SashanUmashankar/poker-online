@@ -73,7 +73,7 @@ full-stack Texas Hold'em poker game built with Python Flask backend and HTML/CSS
 ### Local Network Play
 To play with friends on the same network:
 
-1. **Modify `app.py`:**
+1. **Modify `gambling.py`:**
    ```python
    if __name__ == '__main__':
        app.run(debug=True, host='0.0.0.0', port=5000)
@@ -141,15 +141,10 @@ poker-game/
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## Future Enhancements
+## Soon soon
 
-- [ ] Tournament mode
 - [ ] Player statistics tracking
 - [ ] Chat system
-- [ ] Sound effects and animations
-- [ ] Mobile app version
-- [ ] Database integration for persistent games
-- [ ] Multiple table support
 
 ## License
 
@@ -159,5 +154,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Built with Flask web framework
 - Inspired by classic Texas Hold'em poker
-- Card symbols using Unicode characters
 
