@@ -332,7 +332,7 @@ game = PokerGame()
 
 @app.route('/')
 def index():
-    return render_template('interface.html')
+    return render_template('table.html')
 
 @app.route('/api/join', methods=['POST'])
 def join_game():
