@@ -25,7 +25,7 @@ class Rank(Enum):
     JACK = 11
     QUEEN = 12
     KING = 13
-    ACE = 14
+    ACE = 14  # Ace is high in poker
 
 class Card:
     def __init__(self, suit: Suit, rank: Rank):
@@ -72,13 +72,15 @@ class PokerHand:
         self.rank, self.value = self.evaluate()
     
     def evaluate(self) -> Tuple[HandRank, List[int]]:
+        # only numerical values and suits
         ranks = [card.rank.value for card in self.cards]
         suits = [card.suit for card in self.cards]
         rank_counts = {rank: ranks.count(rank) for rank in set(ranks)}
         
         is_flush = len(set(suits)) == 1
         is_straight = self.is_straight(ranks)
-        
+
+        # checking for best hands first
         if is_straight and is_flush:
             if min(ranks) == 10:
                 return HandRank.ROYAL_FLUSH, [14]
@@ -86,12 +88,12 @@ class PokerHand:
         
         counts = sorted(rank_counts.values(), reverse=True)
         
-        if counts[0] == 4:
+        if counts[0] == 4: # four of a kind
             four_kind = [rank for rank, count in rank_counts.items() if count == 4][0]
             kicker = [rank for rank, count in rank_counts.items() if count == 1][0]
             return HandRank.FOUR_OF_A_KIND, [four_kind, kicker]
         
-        if counts[0] == 3 and counts[1] == 2:
+        if counts[0] == 3 and counts[1] == 2: # full house
             three_kind = [rank for rank, count in rank_counts.items() if count == 3][0]
             pair = [rank for rank, count in rank_counts.items() if count == 2][0]
             return HandRank.FULL_HOUSE, [three_kind, pair]
@@ -102,17 +104,17 @@ class PokerHand:
         if is_straight:
             return HandRank.STRAIGHT, [max(ranks)]
         
-        if counts[0] == 3:
+        if counts[0] == 3: # three of a kind
             three_kind = [rank for rank, count in rank_counts.items() if count == 3][0]
             kickers = sorted([rank for rank, count in rank_counts.items() if count == 1], reverse=True)
             return HandRank.THREE_OF_A_KIND, [three_kind] + kickers
         
-        if counts.count(2) == 2:
+        if counts.count(2) == 2: # two pair
             pairs = sorted([rank for rank, count in rank_counts.items() if count == 2], reverse=True)
             kicker = [rank for rank, count in rank_counts.items() if count == 1][0]
             return HandRank.TWO_PAIR, pairs + [kicker]
         
-        if counts[0] == 2:
+        if counts[0] == 2: # pair
             pair = [rank for rank, count in rank_counts.items() if count == 2][0]
             kickers = sorted([rank for rank, count in rank_counts.items() if count == 1], reverse=True)
             return HandRank.PAIR, [pair] + kickers
@@ -161,7 +163,7 @@ class PokerGame:
         self.pot = 0
         self.current_bet = 0
         self.current_player = 0
-        self.game_stage = "waiting"  # waiting, preflop, flop, turn, river, showdown
+        self.game_stage = "waiting"  # 6 stages: waiting, preflop, flop, turn, river, showdown
         self.small_blind = 10
         self.big_blind = 20
     
